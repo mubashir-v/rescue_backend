@@ -1,17 +1,21 @@
 const express = require('express');
-const { createDisaster, fetchDisasters, fetchDisasterById } = require('../controller/disasterController');
+const { createDisaster,createPreDisaster, fetchDisasters, fetchDisasterById, markAsDisaster } = require('../controller/disasterController');
 const { createHazard, fetchHazards, fetchHazardById } = require('../controller/hazardController');
 const { createPerson, fetchPersons, fetchPersonById,fetchPersonsWithoutCamp,fetchPersonsByCamp } = require('../controller/personController');
 const { createCamp, fetchCamps, fetchCampById } = require('../controller/campController');
 const { fetchLatLngData } = require('../controller/markerController');
 const { Camp } = require('../model/campModel');
 const { Person } = require('../model/personModel');
+const { loginUser, registerUser } = require('../controller/userController');
 
 const router = express.Router();
 
 // Disaster Routes
 router.post('/disasters', createDisaster);
+router.post('/hazard', createPreDisaster);
+
 router.get('/disasters', fetchDisasters);
+router.put('/disasters/:disasterId/mark-as-disaster', markAsDisaster);
 router.get('/disasters/:id', fetchDisasterById);
 
 // Hazard Routes
@@ -32,6 +36,8 @@ router.get('/camps', fetchCamps);
 router.get('/camps/:id', fetchCampById);
 
 router.get('/markers', fetchLatLngData);
+router.post('/login', loginUser);
+router.post('/register', registerUser);
 
 router.post("/move-persons-to-camp", async (req, res) => {
     const { campId, personIds } = req.body;

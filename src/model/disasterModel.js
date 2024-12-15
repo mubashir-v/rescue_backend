@@ -14,6 +14,10 @@ const disaster = new mongoose.Schema({
     type: String,
     default: "",
   },
+  intencity: {
+    type: String,
+    default: "",
+  },
   lat: {
     type: Number,
     default: 0,
@@ -21,6 +25,10 @@ const disaster = new mongoose.Schema({
   lng: {
     type: Number,
     default: 0,
+  },
+  is_disaster :{
+    type: Boolean,
+    default:true
   },
   as_on_date: {
     type: Date,
